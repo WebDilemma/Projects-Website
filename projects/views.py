@@ -29,12 +29,9 @@ class ProjectCreateView(CreateView):
 class ProjectListView(ListView):
     model = Project
     template_name = "projects/project_list.htm"
-    paginate_by = 9
     
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["user"] = None
-        return context
+    def get_queryset(self):
+        return super().get_queryset()
     
 class ProjectDetailView(DetailView):
     model = Project

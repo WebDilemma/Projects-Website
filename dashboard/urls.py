@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 
 from .views import (
     contact_us_view,
+    ContactUsResponse,
     AboutUsView,
 )
 
@@ -29,6 +30,7 @@ urlpatterns = [
     path('', include('portfolio.urls')),
     path('project/', include('projects.urls')),
     path('contact-us/', contact_us_view, name='contact_us'),
+    path('contact-us-response/', ContactUsResponse.as_view(), name='contact_us_congo'),
     path('about-us/', AboutUsView.as_view(), name='about_us'),
     
 ] 

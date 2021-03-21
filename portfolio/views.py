@@ -50,12 +50,14 @@ def profile_edit_view(request, slug):
 @login_required
 def profile_delete_view(request, slug):
     instance = get_object_or_404(UserProfile, slug=slug)
+    context = {}
     if request.user == instance:
-        if request.user.is_authenticated:
+        if request.user.is_authenticated and request.POST:
             UserProfile.objects.remove(slug=slug)
             User.objects.remove(user=request.user)
-    instance_user = get_object_or_404(User, user=request)
-    return redirect('profile:delete_confirm')
+            context['delete'] = "once you delete account there is no going back !"
+            return redirect('profile:delete-cnf')
+    return render(request, 'portfolio/delete_profile.htm', context=context)
 
 def deleted_sucessfuly(request):
     return HttpResponse("Account Deleted Sucsessfuly!")
