@@ -44,6 +44,7 @@ def profile_edit_view(request, slug):
             return redirect('profile:detail', kwargs={'slug':slug})
         
     context['form'] = profile_form
+    context['object'] = instance
     return render(request, 'portfolio/profile_edit.htm', context=context)
 
 @login_required
@@ -89,10 +90,11 @@ def signup_view(request):
         username = signup_form.cleaned_data.get('username')
         email = signup_form.cleaned_data.get('email')
         password = signup_form.cleaned_data.get('password')
-
-        user = User.objects.create(username=username, email=email)
-        user.set_password(password)
-        return redirect('profile:home')
+        user = authenticate(username=username, email=email, password=password)
+        if user is None:
+            user = User.objects.create(username=username, email=email)
+            user.set_password(password)
+            return redirect('profile:home')
             
     context['form'] = signup_form
     

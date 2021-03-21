@@ -1,3 +1,29 @@
-{{ object }}
+{% extends 'index.htm' %}
+
+{% block body_block %}
+
+{{ object.user }}
+
+{% if object.about %}
+{{ object.about }}
+{% else %}{% endif %}
+
+{% if object.img %}
+<img src='{{ object.img }}'> </img>
+{% else %}{% endif %}
+
+{% if object.title %}
+{{ object.title }}
+{% else %}{% endif %}
+
+{% if object.projects %}
+{{ object.projects }}
+{% else %}{% endif %}
+
+{% if object.github %}
+{{ object.github }}
+{% else %}{% endif %}
 
 profile detail
+
+{% endblock %}

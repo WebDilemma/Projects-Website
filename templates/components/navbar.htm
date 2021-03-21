@@ -20,29 +20,42 @@
       <li class="nav-item {% if request.path == home_url %}active{% else %}{% endif %}">
         <a class="nav-link" href="{{ home_url }}">Projects <span class="sr-only">(current)</span></a>
       </li>
+
       <li class="nav-item {% if request.path == contact_url %}active{% else %}{% endif %}">
         <a class="nav-link" href="{{ contact_url }}">Contact</a>
       </li>
+
       <li class="nav-item {% if request.path == about_url %}active{% else %}{% endif %}">
         <a class="nav-link" href="{{ about_url }}">About Us</a>
       </li>
+
+      <li class="nav-item {% if request.path == contact_url %}active{% else %}{% endif %}">
+        <a class="nav-link" href="{{ contact_url }}">Profile Edit</a>
+      </li>
+
+
+      
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
+        <a class="nav-link dropdown-toggle" href='#' id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown link
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="#">Action</a>
           <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">Something else here</a>
         </div>
       </li>
+
       {% if request.user.is_superuser %}
       <li class="nav-item {% if request.path == admin_url %}active{% else %}{% endif %}">
         <a class="nav-link" href="/admin" tabindex="-1" aria-disabled="true">Admin</a>
       </li>
-      {% else %}
-      {% endif %}
+
+      <li class="nav-item {% if request.path == contact_url %}active{% else %}{% endif %}">
+        <a class="nav-link" href="{{ contact_url }}">Add Project</a>
+      </li>
+      {% else %}{% endif %}
+      
       {% if request.user.is_authenticated %}
       <li class="nav-item {% if request.path == logout_url %}active{% else %}{% endif %}">
         <a class="nav-link" href="{{ logout_url }}" tabindex="-1" aria-disabled="true">Log Out</a>
@@ -54,12 +67,12 @@
       <li class="nav-item {% if request.path == sign %}active{% else %}{% endif %}">
         <a class="nav-link" href="{{ signup_url }}" tabindex="-1" aria-disabled="true">Sign Up</a>
       </li>
-
       {% endif %}
+
       <li class="nav-item {% if request.path == cart_url %}active{% else %}{% endif %} ml-3">
         <a class="nav-link" href="{{ cart_url }}" tabindex="-1" aria-disabled="true">{{ request.session.cart_item_number }}   <i class="fas fa-shopping-cart"></i></a>
-  
       </li>
+
     </ul>
     {% comment %} {% include 'snippets/search.html '%} {% endcomment %}
   </div>

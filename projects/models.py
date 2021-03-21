@@ -22,7 +22,7 @@ class Project(models.Model):
     user = models.ManyToManyField('portfolio.UserProfile', related_name='project_user')
     text = models.TextField()
     slug = models.SlugField(blank=True, null=True)
-    like = models.ManyToManyField(portfolio.models.UserProfile,related_name='like', blank=True, null=True)
+    like = models.ManyToManyField(portfolio.models.UserProfile,related_name='like', blank=True)
     categorie = models.CharField(choices=CATEGORIE_CHOICES, max_length=2)
     link = models.URLField(verbose_name="link_to_project", name='link')
     tools = models.ManyToManyField('tags.Tag', related_name='tools')

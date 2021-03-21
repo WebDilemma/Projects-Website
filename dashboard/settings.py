@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'portfolio',
     'projects',
     'tags',
+    'queries',
 ]
 
 MIDDLEWARE = [

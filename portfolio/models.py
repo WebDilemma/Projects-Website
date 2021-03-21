@@ -27,9 +27,8 @@ class UserProfile(models.Model):
     
     def get_absolute_url(self):
         return reverse("profile:detail", kwargs={"slug": self.slug})
-    
-    
- 
+       
+
 
 def unique_slug_generator_user(instance, new_slug=None):
     """

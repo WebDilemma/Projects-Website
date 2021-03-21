@@ -1,1 +1,13 @@
-edit
+{% extends 'index.htm' %}
+
+{% block body_block %}
+profile edit
+
+<form method='POST'>
+  <div class="form-group">
+    {{ form.as_p|crispy }}
+    {% csrf_token %} 
+  <button type="submit" class="btn btn-primary" >Submit</button>
+</form>
+
+{% endblock %}
