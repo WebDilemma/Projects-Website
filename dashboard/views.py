@@ -9,7 +9,7 @@ from django.views.generic import (
     UpdateView,
 ) 
 from django.core.mail import mail_admins, send_mail
-
+from django.conf import settings
 
 from queries.forms import ContactForm
 
@@ -29,7 +29,7 @@ def contact_us_view(request):
         send_mail(
         instance.title,
         instance.text,
-        instance.email,
+        settings.EMAIL_HOST_USER,
         ['parthishere1234@gmail.com'],
         fail_silently=False,
         )
