@@ -1,11 +1,17 @@
-{% url 'projects:list' as home_url %}
+
 {% url 'contact_us' as contact_url %}
 {% url 'about_us' as aboutus_url %}
-{% url 'profile:logout' as logout_url %}
+
 {% url 'admin' as admin_url %}
+
+{% url 'profile:logout' as logout_url %}
 {% url 'profile:login' as login_url %}
 {% url 'profile:signup' as signup_url %}
 {% url 'profile:detail' as profile_url %}
+
+{% url 'projects:list' as home_url %}
+{% url 'projects:create' as add_project_url %}
+{% comment %} {% url 'profile:edit' as profile_edit_url %} {% endcomment %}
 
 {{ brand_name }}
 
@@ -25,13 +31,13 @@
         <a class="nav-link" href="{{ contact_url }}">Contact</a>
       </li>
 
-      <li class="nav-item {% if request.path == about_url %}active{% else %}{% endif %}">
-        <a class="nav-link" href="{{ about_url }}">About Us</a>
+      <li class="nav-item {% if request.path == aboutus_url %}active{% else %}{% endif %}">
+        <a class="nav-link" href="{{ aboutus_url }}">About Us</a>
       </li>
 
-      <li class="nav-item {% if request.path == contact_url %}active{% else %}{% endif %}">
-        <a class="nav-link" href="{{ contact_url }}">Profile Edit</a>
-      </li>
+      <li class="nav-item {% if request.path == profile_edit_url %}active{% else %}{% endif %}">
+        <a class="nav-link" href="{% url 'profile:edit' slug=request.user %}">Profile Edit</a>
+      </li> 
 
 
       
@@ -51,8 +57,8 @@
         <a class="nav-link" href="/admin" tabindex="-1" aria-disabled="true">Admin</a>
       </li>
 
-      <li class="nav-item {% if request.path == contact_url %}active{% else %}{% endif %}">
-        <a class="nav-link" href="{{ contact_url }}">Add Project</a>
+      <li class="nav-item {% if request.path == add_project_url %}active{% else %}{% endif %}">
+        <a class="nav-link" href="{{ add_project_url }}">Add Project</a>
       </li>
       {% else %}{% endif %}
       

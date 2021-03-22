@@ -5,25 +5,27 @@
 {{ object.user }}
 
 {% if object.about %}
-{{ object.about }}
+{{ object.about }}</br>
 {% else %}{% endif %}
 
 {% if object.img %}
-<img src='{{ object.img }}'> </img>
+<img src='{{ object.img }}'> </img></br>
 {% else %}{% endif %}
 
 {% if object.title %}
-{{ object.title }}
+{{ object.title }}</br>
 {% else %}{% endif %}
 
 {% if object.projects %}
-{{ object.projects }}
+{{ object.projects }}</br>
 {% else %}{% endif %}
 
 {% if object.github %}
-{{ object.github }}
+{{ object.github }}</br>
 {% else %}{% endif %}
 
 profile detail
 
+
+<a href='{% url 'profile:edit' slug=object.slug %}'><input type='button' value='edit'></a>
 {% endblock %}

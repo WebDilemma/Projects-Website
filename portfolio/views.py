@@ -30,10 +30,13 @@ def profile_detail_view(request, slug):
     instance = get_object_or_404(UserProfile, slug=slug)
     context = {}
     context['object'] = instance
-    return render(request, 'portfolio/profile_detail.htm', context={ 'context' : context })
+    return render(request, 'portfolio/profile_detail.htm', context=context)
 
 @login_required
-def profile_edit_view(request, slug):
+def profile_edit_view(request, slug=None):
+    if slug==None:
+        user = UserProfile.objects.get(user=request.user)
+        slug = user.slug
     instance = get_object_or_404(UserProfile, slug=slug)
     context = {}
     profile_form = UserProfileForm(request.POST or None, instance=instance)

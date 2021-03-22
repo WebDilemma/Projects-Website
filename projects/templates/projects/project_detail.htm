@@ -1,4 +1,19 @@
+{% extends 'index.htm' %}
+
+{% block body_block%}
+
+
+
 {{ object.text }}
-{{ object.user }}
+{{ object.title }}
+{{ object.author }}
 
 project detail
+
+
+{% if request.user.is_superuser %}
+<a href='{% url 'projects:update' slug=object.slug %}'><input type='button' value='update'><a> 
+{% else %}
+{% endif %}
+
+{% endblock %}

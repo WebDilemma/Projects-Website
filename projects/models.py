@@ -19,7 +19,7 @@ CATEGORIE_CHOICES = [
 class Project(models.Model):
     title = models.CharField(max_length=50)
     img = models.ImageField(upload_to='projects/')
-    user = models.ManyToManyField('portfolio.UserProfile', related_name='project_user')
+    author = models.ManyToManyField('portfolio.UserProfile', related_name='project_user')
     text = models.TextField()
     slug = models.SlugField(blank=True, null=True)
     like = models.ManyToManyField(portfolio.models.UserProfile,related_name='like', blank=True)
@@ -34,7 +34,7 @@ class Project(models.Model):
         return self.title
     
     def get_absolute_url(self):
-        return reverse("project:detail", kwargs={"slug": self.slug})
+        return reverse("projects:detail", kwargs={"slug": self.slug})
     
     
     

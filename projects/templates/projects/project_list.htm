@@ -1,5 +1,14 @@
-{% for obj in objects_list %}
+{% extends 'index.htm' %}
 
-{{ obj }}
+{% block body_block%}
+
+{% if object_list %}
+{% for obj in object_list %}
+
+<a href='{{obj.get_absolute_url}}'>{{ obj }}</a>
 
 {% endfor %}
+{% else %}
+{% endif %}
+
+{% endblock %}

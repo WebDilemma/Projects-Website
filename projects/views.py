@@ -15,33 +15,41 @@ from django.contrib.auth.models import User
 from portfolio.models import UserProfile
 from tags.models import Tag
 from projects.models import Project
-
+from django.contrib.auth.mixins import PermissionRequiredMixin
 # Create your views here.
 
 
-class ProjectCreateView(CreateView):
+class ProjectCreateView(PermissionRequiredMixin, CreateView):
     model = Project
     template_name = 'projects/project_create.htm'
-    fields = ['title', 'img', 'text', 'categorie', 'link', 'tools']
+    fields = ['title', 'img', 'text', 'categorie', 'link', 'tools', 'author']
+    permission_required = ('projects.delete_project')
     success_url = '/'
-    
+
+class ProjectUpdateView(UpdateView):
+    model = Project
+    template_name_suffix = '_update_form'
+    fields = ['title', 'img', 'text', 'categorie', 'link', 'tools']
+    success_url = '/' 
 
 class ProjectListView(ListView):
     model = Project
     template_name = "projects/project_list.htm"
     
-    def get_queryset(self):
-        return super().get_queryset()
+    def get_queryset(self, **kwargs):
+        context = super().get_queryset(**kwargs)
+        
+        return context
     
 class ProjectDetailView(DetailView):
     model = Project
+    find_by = 'slug'
+    slug_url_kwarg = 'slug'
     template_name = 'projects/project_detail.htm'
+    
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs)
 
-class ProjectEditView(UpdateView):
-    model = Project
-    template_name = 'projects/project_create.htm'
-    fields = ['title', 'img', 'text', 'categorie', 'link', 'tools']
-    success_url = '/'
 
 class ProjectDeleteView(DeleteView):
     model = Project
