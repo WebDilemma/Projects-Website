@@ -53,7 +53,7 @@ class ProjectDetailView(DetailView):
 
 class ProjectDeleteView(DeleteView):
     model = Project
-
+    template_name = 'projects/project_confirm_delete.htm'
 
 
 class SearchProject(ListView):

@@ -5,15 +5,21 @@
 
 
 {{ object.text }}
+</br>
 {{ object.title }}
-{{ object.author }}
+</br>
+{% for a in object.author.all %}
+{{ a }}</br>
+{% endfor %}
 
 project detail
 
-
+</br>
 {% if request.user.is_superuser %}
-<a href='{% url 'projects:update' slug=object.slug %}'><input type='button' value='update'><a> 
+<a href='{% url 'projects:update' slug=object.slug %}'><input type='button' value='update'></a> 
+<a href='{% url 'projects:delete' slug=object.slug %}'><input type='button' class='danger' value='delete'></a> 
 {% else %}
 {% endif %}
+
 
 {% endblock %}

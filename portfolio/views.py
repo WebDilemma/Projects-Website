@@ -33,10 +33,7 @@ def profile_detail_view(request, slug):
     return render(request, 'portfolio/profile_detail.htm', context=context)
 
 @login_required
-def profile_edit_view(request, slug=None):
-    if slug==None:
-        user = UserProfile.objects.get(user=request.user)
-        slug = user.slug
+def profile_edit_view(request, slug):
     instance = get_object_or_404(UserProfile, slug=slug)
     context = {}
     profile_form = UserProfileForm(request.POST or None, instance=instance)
@@ -44,7 +41,7 @@ def profile_edit_view(request, slug=None):
         if profile_form.is_valid():
             profile_form.save()
             
-            return redirect('profile:detail', kwargs={'slug':slug})
+            return redirect('profile:home')
         
     context['form'] = profile_form
     context['object'] = instance
@@ -54,10 +51,11 @@ def profile_edit_view(request, slug=None):
 def profile_delete_view(request, slug):
     instance = get_object_or_404(UserProfile, slug=slug)
     context = {}
-    if request.user == instance:
+    if request.user == instance.user:
         if request.user.is_authenticated and request.POST:
-            UserProfile.objects.remove(slug=slug)
-            User.objects.remove(user=request.user)
+            instance.delete()
+            u = User.objects.get(user=request.user)
+            u.delete()
             context['delete'] = "once you delete account there is no going back !"
             return redirect('profile:delete-cnf')
     return render(request, 'portfolio/delete_profile.htm', context=context)

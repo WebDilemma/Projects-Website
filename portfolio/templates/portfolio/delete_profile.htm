@@ -4,8 +4,10 @@
 
 
 delete account ??
+{{ delete }}
 <form method='POST'>
   <div class="form-group">
+  {% csrf_token %}
   <button type="submit" class="btn btn-primary" >Submit</button>
 </form>
 

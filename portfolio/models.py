@@ -12,10 +12,10 @@ from .utils import random_string_generator
 class UserProfile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_profile")
     title = models.CharField(max_length=50, null=True, blank=True)
-    projects = models.ManyToManyField('projects.Project', related_name='projects')
-    about = models.TextField()
+    projects = models.ManyToManyField('projects.Project', related_name='projects', blank=True)
+    about = models.TextField(blank=True, null=True)
     slug = models.SlugField(blank=True, null=True)
-    img = models.ImageField(upload_to='user/')
+    img = models.ImageField(upload_to='user/', blank=True, null=True)
     github = models.URLField(verbose_name='github_link', name='github', blank=True, null=True)
     linkedin = models.URLField(verbose_name='linkedin_link', name='linkedin', blank=True, null=True)
     

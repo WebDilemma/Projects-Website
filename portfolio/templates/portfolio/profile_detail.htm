@@ -9,7 +9,7 @@
 {% else %}{% endif %}
 
 {% if object.img %}
-<img src='{{ object.img }}'> </img></br>
+<img src='{{ object.img.url }}'> </img></br>
 {% else %}{% endif %}
 
 {% if object.title %}
@@ -26,6 +26,6 @@
 
 profile detail
 
-
+</br>
 <a href='{% url 'profile:edit' slug=object.slug %}'><input type='button' value='edit'></a>
 {% endblock %}
