@@ -5,8 +5,10 @@ from django.db.models.signals import pre_save, post_save
 
 from django.contrib.auth.models import User
 
+from rest_framework.reverse import reverse as api_reverse
+
 import projects
-from .utils import random_string_generator
+from .utils import random_string_generator  
 
 # Create your models here.
 class UserProfile(models.Model):
@@ -27,8 +29,13 @@ class UserProfile(models.Model):
     
     def get_absolute_url(self):
         return reverse("profile:detail", kwargs={"slug": self.slug})
+    
+    def get_api_url(self, request=None):
+        return api_reverse('profile-api:detail-api', kwargs={"slug": self.slug}, request=request)
        
-
+    @property
+    def author(self):
+        return self.user
 
 def unique_slug_generator_user(instance, new_slug=None):
     """

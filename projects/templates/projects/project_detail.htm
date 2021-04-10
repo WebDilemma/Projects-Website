@@ -17,9 +17,27 @@ project detail
 </br>
 {% if request.user.is_superuser %}
 <a href='{% url 'projects:update' slug=object.slug %}'><input type='button' value='update'></a> 
-<a href='{% url 'projects:delete' slug=object.slug %}'><input type='button' class='danger' value='delete'></a> 
+
 {% else %}
 {% endif %}
 
+
+{% comment %} {% if request.user in object.author %}
+
+F
+{% else %}
+F2 
+{% endif %} {% endcomment %}
+
+{% for a in object.author.all %}
+{{ a.pk }}
+{{ request.user.pk }}
+{% if a.pk == request.user.pk %}
+<a href='{% url 'projects:delete' slug=object.slug %}'><input type='button' class='danger' value='delete'></a> 
+{% else %}
+F2
+{% endif %}
+
+{% endfor %}
 
 {% endblock %}

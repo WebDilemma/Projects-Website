@@ -3,6 +3,8 @@ from django.shortcuts import redirect, reverse
 from django.utils.text import slugify
 from django.db.models.signals import pre_save, post_save
 
+from rest_framework.reverse import reverse as api_reverse
+
 import portfolio
 import tags
 from .utils import random_string_generator
@@ -35,6 +37,9 @@ class Project(models.Model):
     
     def get_absolute_url(self):
         return reverse("projects:detail", kwargs={"slug": self.slug})
+    
+    def get_api_url(self, request=None):
+        return api_reverse('profile-api:detail-api', kwargs={"slug": self.slug}, request=request)
     
     
     

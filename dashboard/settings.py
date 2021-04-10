@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
+    'rest_framework',
+
     'crispy_forms',
     'portfolio',
     'projects',
@@ -145,3 +147,12 @@ EMAIL_HOST_USER = 'tparth1674@gmail.com'
 EMAIL_USER_TLS = True
 EMAIL_USER_SSH = False
 EMAIL_HOST_PASSWORD = os.environ.get('email_host_password') 
+
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
