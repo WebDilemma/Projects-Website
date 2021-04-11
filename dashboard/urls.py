@@ -28,7 +28,8 @@ from .views import (
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-    path('api/profile', include('portfolio.api.urls', namespace='profile-api')),
+    path('api/profile/', include('portfolio.api.urls', namespace='profile-api')),
+    path('api/project/', include('projects.api.urls', namespace='project-api')),
     path('', include('portfolio.urls')),
     path('project/', include('projects.urls')),
     path('contact-us/', contact_us_view, name='contact_us'),

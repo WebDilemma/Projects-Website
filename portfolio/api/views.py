@@ -1,11 +1,14 @@
 from rest_framework import generics
+from rest_framework.permissions import IsAdminUser
 
 from .serializers import ProfileSerializer
 from portfolio.models import UserProfile
+from .permissions import IsOwnerOrReadOnly
 
-class ProfileRetrieveAPIView(generics.RetrieveAPIView):
+class ProfileRetrieveAPIView(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'slug'
     serializer_class = ProfileSerializer    
+    permission_classes = [IsOwnerOrReadOnly, IsAdminUser]
     
     def get_queryset(self):
         return UserProfile.objects.all()
@@ -13,7 +16,5 @@ class ProfileRetrieveAPIView(generics.RetrieveAPIView):
     def get_serializer_context(self, *args, **kwargs):
         return { "request":self.request }
     
-class ProfileUpdateAPIView(generics.UpdateAPIView):
-    lookup_field = 'slug'
-    serializer_class = ProfileSerializer
+
     

@@ -39,9 +39,11 @@ class Project(models.Model):
         return reverse("projects:detail", kwargs={"slug": self.slug})
     
     def get_api_url(self, request=None):
-        return api_reverse('profile-api:detail-api', kwargs={"slug": self.slug}, request=request)
+        return api_reverse('project-api:detail-api', kwargs={"slug": self.slug}, request=request)
     
-    
+    @property
+    def owner(self):
+        return self.author
     
 def unique_slug_generator_project(instance, new_slug=None):
     """

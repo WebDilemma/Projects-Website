@@ -21,7 +21,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         return obj.get_api_url(request=request)    
     
     def validate_github(self, value):
-        qs = UserProfile.object.filter(github__iexact=value)
+        qs = UserProfile.objects.filter(github__iexact=value)
         if self.instance:
             qs = qs.exclude(pk=self.instance.pk)
         if qs.exists():

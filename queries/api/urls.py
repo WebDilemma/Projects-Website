@@ -1,8 +1,12 @@
 from django.urls import path
 
-from .views import ProfileRetrieveAPIView
+from .views import (
+    ContactCreateView,
+    ContactListView,
+    ContactRetrieveView,
+)
 
-app_name = 'profile-api'
+app_name = 'project-api'
 
 urlpatterns = [
 

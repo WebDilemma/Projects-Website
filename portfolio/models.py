@@ -34,7 +34,7 @@ class UserProfile(models.Model):
         return api_reverse('profile-api:detail-api', kwargs={"slug": self.slug}, request=request)
        
     @property
-    def author(self):
+    def owner(self):
         return self.user
 
 def unique_slug_generator_user(instance, new_slug=None):
