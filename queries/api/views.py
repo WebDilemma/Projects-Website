@@ -1,13 +1,45 @@
 from rest_framework import generics
+from rest_framework.mixins import DestroyModelMixin
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework import filters
 
 from queries.models import ContactModel
-
+from .serializers import ContactSerializer
+from .permissions import IsOwnerOrReadOnly
 
 class ContactCreateView(generics.CreateAPIView):
-    pass
+    queryset = ContactModel.objects.all()
+    permission_classes = [IsAuthenticated]
+    
+    def perform_create(self, serializer):
+        serializer.save(email=self.request.user.email)
+        
 
-class ContactListView(generics.createAPIView):
-    pass
+class ContactListView(generics.ListAPIView):
+    lookup_field = 'slug'
+    queryset = ContactModel.objects.all()
+    permission_classes = [IsAdminUser]
+    serializer_class = ContactSerializer
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['email', 'text', 'title']
+    ordering_fields = '__all__'
+    
+    def get_serializer_context(self, *args, **kwargs):
+        return { "request":self.request }
 
-class ContactRetrieveView(generics.RetrieveView):
-    pass
+class ContactRetrieveView(generics.RetrieveAPIView):
+    lookup_field = 'pk'
+    queryset = ContactModel.objects.all()
+    permission_classes = [IsAdminUser]
+    serializer_class = ContactSerializer
+    
+    def get_serializer_context(self, *args, **kwargs):
+        return { "request":self.request }
+    
+class ContactUpdateDeleteView(generics.UpdateAPIView, DestroyModelMixin):
+    permission_classes = [IsOwnerOrReadOnly]
+    queryset = ContactModel.objects.all()
+    serializer_class = ContactSerializer
+    
+    def perform_destroy(self, instance):
+        instance.delete()
