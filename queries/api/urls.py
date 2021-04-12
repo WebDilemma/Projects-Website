@@ -6,12 +6,12 @@ from .views import (
     ContactRetrieveView,
 )
 
-app_name = 'project-api'
+app_name = 'contact-api'
 
 urlpatterns = [
 
-    # path('profile/<slug:slug>/delete/', profile_delete_view, name='delete'),
-    path('<slug:slug>', ProfileRetrieveAPIView.as_view(), name='detail-api'),
-    # path('profile/<slug:slug>/edit/', profile_edit_view, name='edit'),
+    path('list/', ContactListView.as_view(), name='list-api'),
+    path('<slug:slug>', ContactRetrieveView.as_view(), name='detail-api'),
+    path('create/', ContactCreateView.as_view(), name='create-api'),
 
 ]

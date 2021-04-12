@@ -8,7 +8,7 @@ from .permissions import IsOwnerOrReadOnly
 class ProfileRetrieveAPIView(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'slug'
     serializer_class = ProfileSerializer    
-    permission_classes = [IsOwnerOrReadOnly, IsAdminUser]
+    permission_classes = [IsOwnerOrReadOnly ]
     
     def get_queryset(self):
         return UserProfile.objects.all()

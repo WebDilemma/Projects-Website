@@ -2,8 +2,11 @@ from rest_framework import serializers
 
 from projects.models import Project
 
+from portfolio.api.serializers import ProfileSerializer
+
 class ProjectSerializer(serializers.ModelSerializer):
     url = serializers.SerializerMethodField(read_only=True)
+    author = ProfileSerializer(many=True)
     class Meta():
         model = Project
         fields = [

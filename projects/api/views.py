@@ -1,6 +1,6 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAdminUser
-from rest_framework.filters import SerachFilter, OrderingFilter 
+from rest_framework import filters
 from django.db.models import Q
 
 from projects.models import Project 
@@ -31,8 +31,10 @@ class ProjectRetriveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
 class ProjectListAPIView(generics.ListAPIView):
     permission_classes = []
     serializer_class = ProjectSerializer
-    filter_backends = [SearchFilter]
-    serach_fields = ['title', 'text', 'categorie', 'tools']
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    serach_fields = ['title', 'text', 'categorie', 'tools__in']
+    ordering_fields = '__all__'
+
     
     def get_queryset(self, *args, **kwargs):
         qs = self.request.GET.get('q')

@@ -13,7 +13,11 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
 
-        return (request.user in obj.author.all())
+        for a in obj.owner.all():
+            if a.pk == request.user.pk:
+                return True
+
+        return False
         
         
           
