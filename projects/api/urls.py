@@ -10,8 +10,8 @@ app_name = 'project-api'
 
 urlpatterns = [
 
-    path('list', ProjectListAPIView.as_view(), name='list-api'),
-    path('<slug:slug>', ProjectRetriveUpdateDestroyView.as_view(), name='detail-api'),
-    path('create', ProjectCreateAPIView.as_view(), name='create-api'),
+    path('list/', ProjectListAPIView.as_view(), name='list-api'),
+    path('create/', ProjectCreateAPIView.as_view(), name='create-api'),
+    path('<slug:slug>/', ProjectRetriveUpdateDestroyView.as_view(), name='detail-api'),
 
 ]

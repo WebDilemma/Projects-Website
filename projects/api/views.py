@@ -10,11 +10,9 @@ from .permissions import IsOwnerOrReadOnly
 
 class ProjectCreateAPIView(generics.CreateAPIView):
     permission_classes = [IsAdminUser]
-    lookup_field = 'slug'
     serializer_class = ProjectSerializer
     
-    def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
+
         
 
 class ProjectRetriveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):

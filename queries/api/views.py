@@ -1,5 +1,5 @@
 from rest_framework import generics
-from rest_framework.mixins import DestroyModelMixin
+from rest_framework.mixins import DestroyModelMixin, RetrieveModelMixin
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework import filters
 
@@ -10,6 +10,7 @@ from .permissions import IsOwnerOrReadOnly
 class ContactCreateView(generics.CreateAPIView):
     queryset = ContactModel.objects.all()
     permission_classes = [IsAuthenticated]
+    serializer_class = ContactSerializer
     
     def perform_create(self, serializer):
         serializer.save(email=self.request.user.email)
@@ -36,7 +37,7 @@ class ContactRetrieveView(generics.RetrieveAPIView):
     def get_serializer_context(self, *args, **kwargs):
         return { "request":self.request }
     
-class ContactUpdateDeleteView(generics.UpdateAPIView, DestroyModelMixin):
+class ContactRetriveUpdateDeleteView(generics.UpdateAPIView, DestroyModelMixin, RetrieveModelMixin):
     permission_classes = [IsOwnerOrReadOnly]
     queryset = ContactModel.objects.all()
     serializer_class = ContactSerializer
