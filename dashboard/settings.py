@@ -28,7 +28,7 @@ SECRET_KEY = '$lbbdcjw&)0*#oh#5or&abgz6h5d2xk5&1nxia%8wagct*reql'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["webdilemma4.herokuapp.com", "127.0.0.1"]
 
 
 # Application definition
