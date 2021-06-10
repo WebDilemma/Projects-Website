@@ -32,6 +32,7 @@ urlpatterns = [
     path('api/project/', include('projects.api.urls', namespace='project-api')),
     path('api/contact/', include('queries.api.urls', namespace='contact-api')),
     path('', include('portfolio.urls')),
+    path('team/', include('team.urls', namespace='team')),
     path('project/', include('projects.urls')),
     path('contact-us/', contact_us_view, name='contact_us'),
     path('contact-us-response/', ContactUsResponse.as_view(), name='contact_us_congo'),
