@@ -11,6 +11,8 @@
 
 {% url 'projects:list' as home_url %}
 {% url 'projects:create' as add_project_url %}
+
+{% url 'team:home' as team_url %}
 {% comment %} {% url 'profile:edit' as profile_edit_url %} {% endcomment %}
 
 {{ brand_name }}
@@ -39,10 +41,12 @@
         <a class="nav-link" href="{% url 'profile:edit' slug=request.user %}">Profile Edit</a>
       </li> 
 
+      <li class="nav-item {% if request.path == profile_edit_url %}active{% else %}{% endif %}">
+        <a class="nav-link" href="{{ team_url }}">Our Team</a>
+      </li> 
 
-      
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href='#' id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      {% comment %} <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href='#' id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
           Dropdown link
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -50,7 +54,7 @@
           <a class="dropdown-item" href="#">Another action</a>
           <a class="dropdown-item" href="#">Something else here</a>
         </div>
-      </li>
+      </li> {% endcomment %}
 
       {% if request.user.is_superuser %}
       <li class="nav-item {% if request.path == admin_url %}active{% else %}{% endif %}">

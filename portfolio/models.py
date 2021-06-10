@@ -12,14 +12,19 @@ from .utils import random_string_generator
 
 # Create your models here.
 class UserProfile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_profile")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="user_profile", default=None)
     title = models.CharField(max_length=50, null=True, blank=True)
     projects = models.ManyToManyField('projects.Project', related_name='projects', blank=True)
     about = models.TextField(blank=True, null=True)
     slug = models.SlugField(blank=True, null=True)
     img = models.ImageField(upload_to='user/', blank=True, null=True)
-    github = models.URLField(verbose_name='github_link', name='github', blank=True, null=True)
-    linkedin = models.URLField(verbose_name='linkedin_link', name='linkedin', blank=True, null=True)
+    github_link = models.URLField(blank=True, null=True)
+    website_link = models.URLField(blank=True, null=True)
+    twitter_handle = models.URLField(blank=True, null=True)
+    linked_in_link = models.URLField(blank=True, null=True)
+    instagram_profile_link = models.URLField(blank=True, null=True)
+    active = models.BooleanField(default=True)
+
     
     class Meta():
         ordering = [ '-id' ]

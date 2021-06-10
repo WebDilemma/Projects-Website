@@ -7,7 +7,7 @@ class UserProfileForm(forms.ModelForm):
     
     class Meta():
         model = UserProfile
-        fields = ['title', 'about', 'img', 'github', 'linkedin']
+        fields = ['title', 'about', 'img', 'github_link', 'website_link', "twitter_handle", "linked_in_link", "instagram_profile_link"]
         
         
 class SignUpForm(forms.ModelForm):

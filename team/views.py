@@ -46,7 +46,7 @@ def edit_team_member(request, slug):
 def team_list(request):
     context = {}
     try:
-        team = OurTeam.objects.all(active=True)
+        team = OurTeam.objects.filter(active=True)
     except:
         team = None
     context['objects_list'] = team
@@ -63,6 +63,7 @@ def team_profile(request, slug):
     context['object'] = team_profile
     
     return render(request, 'team/detail.html', context=context)
+
 
 def team_profile_delete(request, slug):
     if request.user.is_authenticated and request.user.is_staff:

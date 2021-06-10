@@ -11,8 +11,11 @@ class ProfileSerializer(serializers.ModelSerializer):
             'user',
             'about',
             'img',
-            'github',
-            'linkedin',      
+            'github_link',
+            'website_link',
+            "twitter_handle",
+            "linked_in_link",
+            "instagram_profile_link"      
         ]
         read_only_field = [ 'pk', 'user', ]
         

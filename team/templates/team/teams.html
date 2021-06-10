@@ -1,0 +1,13 @@
+{% extends 'index.htm' %}
+
+
+{% block body_block %}
+
+{% for obj in objects_list %}
+<a href="{{ obj.get_absolute_url }}">{{ obj }}</br>
+{% endfor %}
+
+
+<a href="{% url 'team:add' %}"><input type="button" name="Add Member" value="Add Member" class="btn btn-primary"></a>
+
+{% endblock %}

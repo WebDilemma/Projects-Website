@@ -32,7 +32,7 @@ def profile_detail_view(request, slug):
     context['object'] = instance
     return render(request, 'portfolio/profile_detail.htm', context=context)
 
-@login_required
+@login_required(login_url='profile:login')
 def profile_edit_view(request, slug):
     instance = get_object_or_404(UserProfile, slug=slug)
     context = {}
@@ -47,7 +47,7 @@ def profile_edit_view(request, slug):
     context['object'] = instance
     return render(request, 'portfolio/profile_edit.htm', context=context)
 
-@login_required
+@login_required(login_url='profile:login')
 def profile_delete_view(request, slug):
     instance = get_object_or_404(UserProfile, slug=slug)
     context = {}
@@ -103,7 +103,7 @@ def signup_view(request):
     
     return render(request, 'portfolio/login.htm', context=context)
 
-@login_required
+@login_required(login_url='profile:login')
 def logout_view(request):
     if request.user.is_authenticated:
         logout(request)

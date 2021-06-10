@@ -1,7 +1,12 @@
 {% extends 'index.htm' %}
 
-<form method="post" action="{% url 'team:add-member' %}">
+
+{% block body_block %}
+
+<form method="POST" action="{% url 'team:add' %}" enctype="multipart/form-data">
 {% csrf_token %}
 {{ form.as_p }}
-<input type='submit' class="btn btn-primary" value="submit" name="submit"/>
+<input type='submit' class="btn btn-primary" value="submit" name="submit">
 </from>
+
+{% endblock %}

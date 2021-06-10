@@ -31,6 +31,7 @@ urlpatterns = [
     path('api/profile/', include('portfolio.api.urls', namespace='profile-api')),
     path('api/project/', include('projects.api.urls', namespace='project-api')),
     path('api/contact/', include('queries.api.urls', namespace='contact-api')),
+    path('api/team/', include('team.api.urls', namespace='team-api')),
     path('', include('portfolio.urls')),
     path('team/', include('team.urls', namespace='team')),
     path('project/', include('projects.urls')),
