@@ -97,6 +97,8 @@ def signup_view(request):
         if user is None:
             user = User.objects.create(username=username, email=email)
             user.set_password(password)
+            user.save()
+            login(request, user)
             return redirect('profile:home')
             
     context['form'] = signup_form
