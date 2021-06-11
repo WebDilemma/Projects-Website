@@ -20,7 +20,7 @@ class TeamSerializer(serializers.ModelSerializer):
         return obj.get_api_url(request=request) 
     
     def get_slug(self, obj):
-        slug = self.user.slug
+        slug = obj.user.slug
         return slug   
     
     def validate_github(self, value):

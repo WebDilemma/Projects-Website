@@ -22,7 +22,7 @@ class OurTeam(models.Model):
         return reverse("team:detail", kwargs={"slug": self.user.slug})
     
     def get_api_url(self, request=None):
-        return api_reverse('team-api:detail-api', kwargs={"slug": self.user.slug}, request=request)
+        return api_reverse('team-api:detail-api', kwargs={"pk": self.pk}, request=request)
     
     # reverse queryset when user = User not UserProfile
     # def get_absolute_url(self):
