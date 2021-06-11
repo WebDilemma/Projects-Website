@@ -2,11 +2,10 @@
 
 {% block body_block %}
 
-{% load crsipy_forms_tags %}
 Sign Up
 <form method='POST'>
   <div class="form-group">
-    {{ form.as_p|crispy }}
+    {{ form.as_p}}
     {% csrf_token %} 
   <button type="submit" class="btn btn-primary" >Submit</button>
 </form>

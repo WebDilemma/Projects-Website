@@ -73,7 +73,7 @@ def login_view(request):
             email = login_form.cleaned_data.get('email')
             password = login_form.cleaned_data.get('password')
             
-            user = authenticate(username=username, email=email, password=password)
+            user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
 
@@ -89,21 +89,19 @@ def signup_view(request):
     signup_form = SignUpForm(request.POST or None)
     context = {}
     if signup_form.is_valid():
-        signup_form.save()
         username = signup_form.cleaned_data.get('username')
         email = signup_form.cleaned_data.get('email')
         password = signup_form.cleaned_data.get('password')
-        user = authenticate(username=username, email=email, password=password)
+        user = authenticate(username=username, password=password)
         if user is None:
-            user = User.objects.create(username=username, email=email)
-            user.set_password(password)
-            user.save()
+            signup_form.save()
+            user = User.objects.get(username=username)
             login(request, user)
             return redirect('profile:home')
             
     context['form'] = signup_form
     
-    return render(request, 'portfolio/login.htm', context=context)
+    return render(request, 'portfolio/sign-up.htm', context=context)
 
 @login_required(login_url='profile:login')
 def logout_view(request):

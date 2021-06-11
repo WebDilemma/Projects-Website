@@ -4,6 +4,8 @@ from django.shortcuts import reverse
 
 from portfolio.models import UserProfile
 
+from rest_framework.reverse import reverse as api_reverse
+
 # Create your models here.
 class OurTeam(models.Model):
     user = models.OneToOneField(UserProfile, on_delete=models.CASCADE, default=None)
@@ -18,6 +20,9 @@ class OurTeam(models.Model):
     
     def get_absolute_url(self):
         return reverse("team:detail", kwargs={"slug": self.user.slug})
+    
+    def get_api_url(self, request=None):
+        return api_reverse('team-api:detail-api', kwargs={"slug": self.user.slug}, request=request)
     
     # reverse queryset when user = User not UserProfile
     # def get_absolute_url(self):
