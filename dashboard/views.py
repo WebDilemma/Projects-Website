@@ -13,26 +13,25 @@ from django.conf import settings
 
 from queries.forms import ContactForm
 
+ADMINs_EMAIL = [
+    'parthishere1234@gmail.com',
+]
+
 @login_required(login_url='profile:login')
 def contact_us_view(request):
     context = {}
     contact_form = ContactForm(request.POST or None)
     if contact_form.is_valid():
         context['form'] = contact_form
-        email = request.user.email
+        user_email = request.user.email
+        
         print(request.user.email)
         instance = contact_form.save()
-        instance.email = email
+        instance.email = user_email
         
         instance.save()
         
-        send_mail(
-        instance.title,
-        instance.text,
-        settings.EMAIL_HOST_USER,
-        ['parthishere1234@gmail.com'],
-        fail_silently=False,
-        )
+        mail_admins()
         
         return redirect('contact_us_congo')
         

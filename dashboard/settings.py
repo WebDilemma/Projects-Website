@@ -147,14 +147,16 @@ CRISPY_TEMPLATE_PACK="bootstrap4"
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'tparth1674@gmail.com' 
-EMAIL_USER_TLS = True
-EMAIL_USER_SSH = False
-EMAIL_HOST_PASSWORD = "thisistestpasswordfordjango" 
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'tparth1674@gmail.com' 
+# EMAIL_USER_TLS = True
+# EMAIL_USER_SSH = False
+# EMAIL_HOST_PASSWORD = "" 
 
+
+ADMINS = [('parth', 'parthishere1234@gmail.com'),]
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
