@@ -11,7 +11,10 @@ class TeamSerializer(serializers.ModelSerializer):
             'url',
             'pk',
             'user',
-            'slug'     
+            'slug',  
+            'job_title', 
+            'name', 
+            'expertise',   
         ]
         read_only_field = [ 'pk', 'user', ]
         

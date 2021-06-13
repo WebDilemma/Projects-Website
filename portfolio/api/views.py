@@ -5,6 +5,9 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.views import APIView
 
+from rest_framework import filters
+from django.db.models import Q
+
 from django.core.validators import validate_email
 
 from .serializers import ProfileSerializer
@@ -83,6 +86,10 @@ class ProfileListAPIView(generics.ListAPIView):
     queryset = UserProfile.objects.all()
     serializer_class = ProfileSerializer
     permission_classes = []
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['user__username', 'about', 'projects__title']
+    ordering_fields = '__all__'
+    
     
     def get_serializer_context(self, *args, **kwargs):
         return { "request":self.request }
