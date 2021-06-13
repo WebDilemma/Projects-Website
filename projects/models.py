@@ -27,7 +27,7 @@ class Project(models.Model):
     like = models.ManyToManyField(portfolio.models.UserProfile,related_name='like', blank=True)
     categorie = models.CharField(choices=CATEGORIE_CHOICES, max_length=2)
     link = models.URLField(verbose_name="link_to_project", name='link')
-    # tools = models.ManyToManyField('tags.Tag', related_name='tools')
+    tools = models.ManyToManyField('tags.Tag', related_name='tools')
     
     class Meta():
         ordering = [ '-id' ]

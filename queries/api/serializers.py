@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from queries.models import ContactModel
 
-class ContactSerializer(serializers.ModelSerializer):
+class ContactReadSerializer(serializers.ModelSerializer):
     class Meta():
         model = ContactModel
         fields = [
@@ -12,4 +12,16 @@ class ContactSerializer(serializers.ModelSerializer):
             'text',
         ]
         read_only_fields = ['email']
+        
+class ContactCreateSerializer(serializers.Serializer):
+    email = serializers.SerializerMethodField()
+    title = serializers.SerializerMethodField()
+    text = serializers.SerializerMethodField()
+    class Meta():
+        fields = [
+            'email',
+            'title',
+            'text',
+        ]
+
     

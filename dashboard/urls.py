@@ -16,6 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from rest_framework.schemas import get_schema_view
+from rest_framework.documentation import include_docs_urls
+
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -38,8 +41,18 @@ urlpatterns = [
     path('contact-us/', contact_us_view, name='contact_us'),
     path('contact-us-response/', ContactUsResponse.as_view(), name='contact_us_congo'),
     path('about-us/', AboutUsView.as_view(), name='about_us'),
+    path('schema/', get_schema_view(
+        title="WebDilemma",
+        description="API for the WebDilemma.dev",
+        version="1.0.0"
+    ), name="webdilemma-schema"),
+    path('api/', include_docs_urls(
+        title="WebDilemma",
+        description="API for the WebDilemma.dev",
+    ), name="webdilemma-docs")
+]
     
-] 
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
