@@ -4,27 +4,22 @@ from team.models import OurTeam
 
 class TeamSerializer(serializers.ModelSerializer):
     url  = serializers.SerializerMethodField(read_only=True)
-    slug = serializers.SerializerMethodField(read_only=True)
     class Meta():
         model = OurTeam
         fields = [
             'url',
             'pk',
             'user',
-            'slug',  
             'job_title', 
             'name', 
             'expertise',   
         ]
         read_only_field = [ 'pk', 'user', ]
+        depth = 2
         
     def get_url(self, obj):
         request = self.context.get('request')
         return obj.get_api_url(request=request) 
-    
-    def get_slug(self, obj):
-        slug = obj.user.slug
-        return slug   
     
     def validate_github(self, value):
         qs = OurTeam.objects.filter(user__github__iexact=value)

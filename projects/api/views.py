@@ -79,7 +79,6 @@ class ProjectUpdateAPIView(APIView):
     
 
 class ProjectListAPIView(generics.ListAPIView):
-    permission_classes = []
     serializer_class = ProjectSerializer
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     serach_fields = ['title', 'text', 'categorie', 'tools__in']

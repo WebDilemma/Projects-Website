@@ -1,6 +1,8 @@
 from rest_framework import serializers
 
 from portfolio.models import UserProfile
+
+
 class ProfileSerializer(serializers.ModelSerializer):
     url  =serializers.SerializerMethodField(read_only=True)
     class Meta():
@@ -15,13 +17,15 @@ class ProfileSerializer(serializers.ModelSerializer):
             'website_link',
             "twitter_handle",
             "linked_in_link",
-            "instagram_profile_link"      
+            "instagram_profile_link",
         ]
         read_only_field = [ 'pk', 'user', ]
+        depth = 1
         
     def get_url(self, obj):
         request = self.context.get('request')
-        return obj.get_api_url(request=request)    
+        return obj.get_api_url(request=request)
+    
     
     def validate_github(self, value):
         qs = UserProfile.objects.filter(github__iexact=value)

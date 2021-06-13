@@ -85,7 +85,6 @@ class ProfileUpdateAPIView(APIView):
 class ProfileListAPIView(generics.ListAPIView):
     queryset = UserProfile.objects.all()
     serializer_class = ProfileSerializer
-    permission_classes = []
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['user__username', 'about', 'projects__title']
     ordering_fields = '__all__'
