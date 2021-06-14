@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import dotenv
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,11 +21,16 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
 STATIC_DIR = os.path.join(BASE_DIR, "static")
 
 
+dotenv_file = os.path.join(BASE_DIR, ".env")
+if os.path.isfile(dotenv_file):
+    dotenv.load_dotenv(dotenv_file)
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '$lbbdcjw&)0*#oh#5or&abgz6h5d2xk5&1nxia%8wagct*reql'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -92,11 +99,11 @@ WSGI_APPLICATION = 'dashboard.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd1hn56heq1mh3l',
+        'NAME': os.environ['DATABASE_NAME'],
         'HOST': 'ec2-52-5-1-20.compute-1.amazonaws.com',
         'PORT': 5432,
-        'USER': 'qhcendyamaopor',
-        'PASSWORD': 'ba6e13ac01e8c8e500939d4c8597b211359793c5d12df4fa5f4526089e1287c3',
+        'USER': os.environ['DATABASE_USER'],
+        'PASSWORD': os.environ['DATABASE_PASSWORD'],
     }
 }
 
@@ -150,16 +157,16 @@ CRISPY_TEMPLATE_PACK="bootstrap4"
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_USE_TLS = True
-# EMAIL_PORT = 587
-# EMAIL_HOST_USER = 'tparth1674@gmail.com' 
-# EMAIL_USER_TLS = True
-# EMAIL_USER_SSH = False
-# EMAIL_HOST_PASSWORD = "" 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER =  os.environ['EMAIL_USER']
+EMAIL_USER_TLS = True
+EMAIL_USER_SSH = False
+EMAIL_HOST_PASSWORD = os.environ["EMAIL_PASSWORD"]
 
 
-ADMINS = [('parth', 'parthishere1234@gmail.com'),]
+ADMINS = [('parth', 'tparth1674@gmail.com')]
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
@@ -179,6 +186,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOWED_ORIGINS = [
-    "https://wdproduction.netlify.app/",
+    "https://wdproduction.netlify.app",
     "http://127.0.0.1:3000",
 ]

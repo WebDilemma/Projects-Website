@@ -1,4 +1,4 @@
-from django.shortcuts import render, Http404, redirect
+from django.shortcuts import render, Http404, redirect, HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.views.generic import (
     TemplateView,
@@ -8,31 +8,35 @@ from django.views.generic import (
     ListView,
     UpdateView,
 ) 
-from django.core.mail import mail_admins, send_mail
+from django.core.mail import mail_admins, send_mail, BadHeaderError
 from django.conf import settings
+from django.template.loader import render_to_string, get_template
 
 from queries.forms import ContactForm
 
-ADMINs_EMAIL = [
-    'parthishere1234@gmail.com',
-]
 
-@login_required(login_url='profile:login')
 def contact_us_view(request):
     context = {}
     contact_form = ContactForm(request.POST or None)
     if contact_form.is_valid():
         context['form'] = contact_form
-        user_email = request.user.email
         
-        print(request.user.email)
         instance = contact_form.save()
-        instance.email = user_email
+        context = {
+            'superuser': "parth",
+            'title': instance.title,
+            'message': instance.text,
+            'email': instance.email,
+        }
         
-        instance.save()
-        
-        mail_admins()
-        
+        subject = instance.title
+        message = render_to_string('email.html', context) 
+        from_email = instance.email
+    
+        try:
+            mail_admins(subject, message, fail_silently=False, html_message=message)
+        except BadHeaderError:
+            return HttpResponse('Invalid header found.')
         return redirect('contact_us_congo')
         
     context['form'] = contact_form
